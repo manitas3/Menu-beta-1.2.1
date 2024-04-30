@@ -1,0 +1,170 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+#menu {
+    background-color: #434b4d;
+    padding: 20px;
+}
+
+.category {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.item-menu {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    background-color: #fff;
+    width: 200px;
+    text-align: center;
+}
+
+.item-menu:hover {
+    transform: translateY(-5px);
+}
+
+.item-menu img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
+}
+
+.item-menu p {
+    padding: 10px;
+    margin: 0;
+    font-size: 14px;
+}
+
+#cart {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#cart h2 {
+    margin-top: 0;
+}
+
+#cart-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#cart-items li:last-child {
+    border-bottom: none;
+}
+
+#cart-items li button {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#cart-items li button:hover {
+    background-color: #ff6666;
+}
+
+#total {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#confirmar-compra {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#confirmar-compra:hover {
+    background-color: #45a049;
+}
+
+#notification {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 1000;
+    transition: top 0.5s ease;
+}
+
+#notification.hidden {
+    top: -50px;
+}
+
+/* Estilos adicionales para el campo de entrada del nombre del comensal */
+#customer-details {
+    margin-bottom: 20px;
+}
+
+#customer-details label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+#customer-name {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+#customer-name:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Reglas adicionales para dispositivos móviles */
+@media screen and (max-width: 768px) {
+    .category {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .item-menu {
+        width: 100%;
+    }
+}

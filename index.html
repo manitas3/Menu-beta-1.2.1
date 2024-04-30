@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú del Restaurante</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Nuestro menú</h1>
+    </header>
+
+    <section id="menu">
+        <h2>Entradas</h2>
+        <div class="category" id="entradas">
+            <!-- Entradas se llenarán dinámicamente con JavaScript -->
+        </div>
+
+        <h2>Platos Fuertes</h2>
+        <div class="category" id="platosFuertes">
+            <!-- Platos Fuertes se llenarán dinámicamente con JavaScript -->
+        </div>
+
+        <h2>Postres</h2>
+        <div class="category" id="postres">
+            <!-- Postres se llenarán dinámicamente con JavaScript -->
+        </div>
+
+        <h2>Bebidas</h2>
+        <div class="category" id="bebidas">
+            <!-- Bebidas se llenarán dinámicamente con JavaScript -->
+        </div>
+    </section>
+
+    <aside id="cart">
+        <h2>Confirmar pedido</h2>
+        <ul id="cart-items">
+            <!-- Aquí se agregarán los elementos del carrito dinámicamente -->
+        </ul>
+        <div id="total">Total: $0 MXN</div>
+        <div id="customer-details">
+            <label for="customer-name">Nombre:</label>
+            <input type="text" id="customer-name" placeholder="Ingrese su nombre">
+        </div>
+        <button id="confirmar-compra">Aceptar</button>
+    </aside>
+
+    <div id="notification" class="notification hidden">
+        ¡Pedido realizado con éxito, muchas gracias :3!
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
