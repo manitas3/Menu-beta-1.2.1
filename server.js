@@ -1,6 +1,13 @@
 const http = require('http');
 const fs = require('fs');
 
+function guardarPedido(pedido) {
+  fs.appendFile('pedidos.txt', pedido + '\n', (err) => {
+    if (err) throw err;
+    console.log('Pedido guardado en pedidos.txt');
+  });
+}
+
 const server = http.createServer((req, res) => {
   if (req.method === 'POST' && req.url === '/pedido') {
     let data = '';
@@ -20,15 +27,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-function guardarPedido(pedido) {
-  fs.appendFile('pedidos.txt', pedido + '\n', (err) => {
-    if (err) throw err;
-    console.log('Pedido guardado en pedidos.txt');
-  });
-}
-
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
-
