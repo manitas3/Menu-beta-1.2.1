@@ -1,170 +1,133 @@
-/* Estilos generales */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const cartItemsElement = document.getElementById('cart-items');
+    const totalElement = document.getElementById('total');
+    const confirmarCompraButton = document.getElementById('confirmar-compra');
+    const notificationElement = document.getElementById('notification');
+    const customerNameInput = document.getElementById('customer-name');
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-}
+    let cart = {};
 
-header h1 {
-    margin: 0;
-    font-size: 32px;
-}
+    const menuData = {
+        entradas: [
+            { nombre: 'Ensalada César', descripcion: 'Lechuga, crutones, aderezo César.', precio: 80, imagen: 'https://cdn7.kiwilimon.com/recetaimagen/36391/45060.jpg' },
+            { nombre: 'Queso Fundido', descripcion: 'Queso derretido con chorizo, servido con tortillas de maíz.', precio: 100, imagen: 'https://www.mexicoenmicocina.com/wp-content/uploads/2017/07/Queso-Fundido-con-Chorizo-%E2%80%8B%E2%80%8B1-1024x683.jpg' },
+            { nombre: 'Guacamole', descripcion: 'Guacamole fresco con totopos.', precio: 90, imagen: 'https://www.goya.com/media/3968/mexican-guacamole.jpg?quality=80' },
+            { nombre: 'Sopa de Tortilla', descripcion: 'Sopa caliente de tortilla con aguacate y crema.', precio: 85, imagen: 'https://assets.elgourmet.com/wp-content/uploads/2023/03/sopa-_hugNUCIWvbaBpcjk7QyfMs2AODrF3E-1024x683.png' }
+        ],
+        platosFuertes: [
+            { nombre: 'Tacos al Pastor', descripcion: 'Tacos de carne al pastor con cebolla, cilantro y piña.', precio: 120, imagen: 'https://www.comedera.com/wp-content/uploads/2017/08/tacos-al-pastor-receta.jpg' },
+            { nombre: 'Filete de Pescado', descripcion: 'Filete de pescado a la plancha con arroz y ensalada.', precio: 150, imagen: 'https://mejorconsalud.as.com/wp-content/uploads/2018/05/filete-pescado-verduras.jpg' },
+            { nombre: 'Milanesa de Pollo', descripcion: 'Milanesa de pollo empanizada con papas fritas.', precio: 110, imagen: 'https://inmamamaggieskitchen.com/wp-content/uploads/2019/01/Milanesa-de-Pollo.jpg' },
+            { nombre: 'Enchiladas Verdes', descripcion: 'Enchiladas de pollo bañadas en salsa verde, servidas con arroz y frijoles.', precio: 130, imagen: 'https://cdn7.kiwilimon.com/recetaimagen/36938/50874.jpg' }
+        ],
+        postres: [
+            { nombre: 'Pastel de Chocolate', descripcion: 'Delicioso pastel de chocolate con salsa de fresa.', precio: 70, imagen: 'https://www.verybestbaking.com/sites/g/files/jgfbjl326/files/srh_recipes/6ac66e5882a6c7672cec34554a5a3a2d.jpg' },
+            { nombre: 'Flan de Caramelo', descripcion: 'Flan casero con caramelo líquido.', precio: 60, imagen: 'https://mojo.generalmills.com/api/public/content/d0OzlvMawUWJ6G_dDAdWQg_gmi_hi_res_jpeg.jpeg?v=271f2d6e&t=16e3ce250f244648bef28c5949fb99ff' },
+            { nombre: 'Helado de Vainilla', descripcion: 'Bola de helado de vainilla con sirope de chocolate.', precio: 50, imagen: 'https://www.recetasnestle.com.do/sites/default/files/srh_recipes/62099096785a3c939a1a1eefb06bf358.jpg' },
+            { nombre: 'Tres Leches', descripcion: 'Pastel empapado en tres tipos de leche.', precio: 80, imagen: 'https://cdn0.recetasgratis.net/es/posts/0/1/9/torta_tres_leches_8910_orig.jpg' }
+        ],
+        bebidas: [
+            { nombre: 'Margarita', descripcion: 'Clásica margarita preparada con tequila, triple sec y lima.', precio: 100, imagen: 'https://cdn.recetasderechupete.com/wp-content/uploads/2024/03/coctel_margarita_marie_brizard.jpg' },
+            { nombre: 'Refresco', descripcion: 'Refresco de cola, naranja, o limón.', precio: 30, imagen: 'https://www.elfinanciero.com.mx/resizer/fnxt8x3-uNLTpsKKl7nku5RHbTU=/400x267/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/elfinanciero/XTYNPUDDSZFKRK2MG3NL7KNJA4.jpeg' },
+            { nombre: 'Agua Fresca', descripcion: 'Agua de sabor natural de frutas.', precio: 40, imagen: 'https://www.cookingclassy.com/wp-content/uploads/2021/07/aqua-fresca-22.jpg' },
+            { nombre: 'Cerveza Artesanal', descripcion: 'Cerveza artesanal local.', precio: 80, imagen: 'https://topbeer.mx/wp-content/uploads/2022/08/tipos-de-cerveza-en-beer-flight-1024x683.jpg' }
+        ]
+    };
 
-#menu {
-    background-color: #434b4d;
-    padding: 20px;
-}
-
-.category {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.item-menu {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    background-color: #fff;
-    width: 200px;
-    text-align: center;
-}
-
-.item-menu:hover {
-    transform: translateY(-5px);
-}
-
-.item-menu img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 5px 5px 0 0;
-}
-
-.item-menu p {
-    padding: 10px;
-    margin: 0;
-    font-size: 14px;
-}
-
-#cart {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-#cart h2 {
-    margin-top: 0;
-}
-
-#cart-items li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-#cart-items li:last-child {
-    border-bottom: none;
-}
-
-#cart-items li button {
-    background-color: #ff4c4c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#cart-items li button:hover {
-    background-color: #ff6666;
-}
-
-#total {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-#confirmar-compra {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-#confirmar-compra:hover {
-    background-color: #45a049;
-}
-
-#notification {
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    z-index: 1000;
-    transition: top 0.5s ease;
-}
-
-#notification.hidden {
-    top: -50px;
-}
-
-/* Estilos adicionales para el campo de entrada del nombre del comensal */
-#customer-details {
-    margin-bottom: 20px;
-}
-
-#customer-details label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 16px;
-}
-
-#customer-name {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-}
-
-#customer-name:focus {
-    border-color: #4CAF50;
-    outline: none;
-}
-
-/* Reglas adicionales para dispositivos móviles */
-@media screen and (max-width: 768px) {
-    .category {
-        grid-template-columns: repeat(2, 1fr);
+    function addToCart(item) {
+        if (cart[item.nombre]) {
+            cart[item.nombre].cantidad++;
+        } else {
+            cart[item.nombre] = { ...item, cantidad: 1 };
+        }
+        updateCart();
     }
-    
-    .item-menu {
-        width: 100%;
+
+    function removeFromCart(item) {
+        if (cart[item.nombre].cantidad === 1) {
+            delete cart[item.nombre];
+        } else {
+            cart[item.nombre].cantidad--;
+        }
+        updateCart();
     }
-}
+
+    function updateCart() {
+        cartItemsElement.innerHTML = '';
+        let total = 0;
+
+        Object.values(cart).forEach(item => {
+            total += item.precio * item.cantidad;
+            const listItem = document.createElement('li');
+            listItem.textContent = `${item.nombre} x ${item.cantidad} - $${item.precio * item.cantidad} MXN`;
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Eliminar';
+            removeButton.addEventListener('click', function() {
+                removeFromCart(item);
+            });
+            listItem.appendChild(removeButton);
+            cartItemsElement.appendChild(listItem);
+        });
+
+        totalElement.textContent = `Total: $${total} MXN`;
+    }
+
+    function createMenuItems(category, containerId) {
+        const container = document.getElementById(containerId);
+        menuData[category].forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('item-menu');
+            itemDiv.dataset.name = item.nombre;
+            itemDiv.dataset.price = item.precio;
+            itemDiv.innerHTML = `
+                <img src="${item.imagen}" alt="${item.nombre}">
+                <p>${item.nombre} - $${item.precio} MXN</p>
+                <p>${item.descripcion}</p>
+            `;
+            itemDiv.addEventListener('click', function() {
+                addToCart(item);
+            });
+            container.appendChild(itemDiv);
+        });
+    }
+
+    createMenuItems('entradas', 'entradas');
+    createMenuItems('platosFuertes', 'platosFuertes');
+    createMenuItems('postres', 'postres');
+    createMenuItems('bebidas', 'bebidas');
+
+    confirmarCompraButton.addEventListener('click', function() {
+        if (customerNameInput.value.trim() === '') {
+            alert('Por favor, ingrese su nombre para confirmar la compra.');
+            return;
+        }
+
+        const pedido = {
+            nombreCliente: customerNameInput.value.trim(),
+            items: Object.values(cart)
+        };
+
+        // Construir el cuerpo del correo electrónico
+        let cuerpoCorreo = `Nombre del cliente: ${pedido.nombreCliente}\n\n`;
+        cuerpoCorreo += 'Pedido:\n';
+        pedido.items.forEach(item => {
+            cuerpoCorreo += `${item.nombre} x ${item.cantidad}\n`;
+        });
+
+        // Enviar el correo electrónico utilizando el protocolo 'mailto'
+        const destinatario = 'mt3579138@gail.com'; // Reemplaza esto con tu propia dirección de correo electrónico
+        const asunto = 'Nuevo pedido en línea';
+        const mailtoURL = `mailto:${destinatario}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpoCorreo)}`;
+
+        // Abrir el cliente de correo electrónico predeterminado del usuario
+        window.location.href = mailtoURL;
+
+        // Vacía el carrito después de confirmar la compra
+        cart = {};
+        updateCart(); // Actualiza el carrito en la interfaz
+        notificationElement.classList.remove('hidden');
+        setTimeout(function() {
+            notificationElement.classList.add('hidden');
+        }, 3000);
+    });
+});
